@@ -1,0 +1,69 @@
+<!-- registration.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1 class="title">User Registration</h1>
+    <form id="registrationForm">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required><br><br>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required><br><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        <label for="password">Confirm Password:</label>
+        <input type="password" id="cnf_password" name="cnf_password" required><br><br>
+        <label for="mobileNumber">Mobile Number:</label>
+        <input type="text" id="mobileNumber" name="mobileNumber" required><br><br>
+        <input type="submit" value="Register">
+    </form>
+    <p id="registrationMessage"></p>
+    <form id="emailverify">
+        <label for="">Enter the OTP</label>
+        <input type="text" id="otp" name="otp">
+        <input type="submit" value="Click to verify">
+    </form>
+    
+    <script src="registration.js"></script>
+</body>
+</html>
+
+
+<script>
+    // registration.js
+document.getElementById('registrationForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    var formData = {
+        'first_name': document.getElementById('firstName').value,
+        'last_name': document.getElementById('lastName').value,
+        'email': document.getElementById('email').value,
+        'password': document.getElementById('password').value,
+        'cnf_password': document.getElementById('cnf_password').value,
+        'mobile_number': document.getElementById('mobileNumber').value
+    };
+
+    fetch('http://127.0.0.1:5000/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('registrationMessage').textContent = data.message ;
+        console.log(data);
+
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+</script>
