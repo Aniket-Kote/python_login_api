@@ -29,8 +29,8 @@ cursor = db.cursor()
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'askncapture0808@gmail.com'  # Replace with your Gmail address
-app.config['MAIL_PASSWORD'] = 'ebpj ktpi imcr iwtr'  # Replace with your Gmail password
+app.config['MAIL_USERNAME'] = 'sender's email'  # Replace with your Gmail address
+app.config['MAIL_PASSWORD'] = 'sender's app password'  # Replace with your Gmail password
 
 app.secret_key = secrets.token_hex(16)  # Set a secret key for session management
 mail = Mail(app)
@@ -66,7 +66,7 @@ def register():
             db.commit()
 
             # Send verification email
-            msg = Message('Email Verification', sender='askncapture0808@example.com', recipients=[email])
+            msg = Message('Email Verification', sender='sender's email', recipients=[email])
             msg.body = f'Your verification code is: {verification_code}'
             mail.send(msg)
             message='User registered successfully. Check your email for verification.'
